@@ -1,11 +1,11 @@
+package controller.auth;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.customer;
 
-import dao.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,13 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Customer;
 
 /**
  *
  * @author ASUS
  */
-public class loginCusServlet extends HttpServlet {
+public class logoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,24 +34,9 @@ public class loginCusServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            request.setCharacterEncoding("utf-8");
-            String name = request.getParameter("txtname");
-            String phone = request.getParameter("txtphone");
-            if (name != null && phone != null) {
-                CustomerDAO d = new CustomerDAO();
-                Customer cus = d.checkLogin(name, phone);
-                if (cus != null) {  // Kiểm tra đăng nhập thành công
-                    HttpSession s = request.getSession(true);
-                    s.setAttribute("CUSTOMER", cus);
-                    request.getRequestDispatcher("MainCustomer?action=view").forward(request, response) ;
-//                    response.sendRedirect("MainCustomer?action=view");
-                } else {
-                    request.setAttribute("ERROR", "invalid name or phone");
-                    request.getRequestDispatcher("MainController?action=home").forward(request, response);
-                }
-            } else {
-//                request.getRequestDispatcher("MainController?action=home").forward(request, response);
-            }
+            HttpSession s = request.getSession();
+            s.invalidate();
+            request.getRequestDispatcher("MainController?action=home").forward(request, response);
         }
     }
 

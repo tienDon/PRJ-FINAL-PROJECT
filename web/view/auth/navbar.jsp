@@ -8,6 +8,7 @@
 <%@page import="model.Customer"%>
 <%@page import="model.Mechanic"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,26 +51,40 @@
     </head>
     <body>
 
-        <%
-            Mechanic mecha = (Mechanic) session.getAttribute("MECHANIC");
-            Customer cus = (Customer) session.getAttribute("CUSTOMER");
-            SalePerson sale = (SalePerson) session.getAttribute("SALE");
-            String homePage = "";
-            homePage = mecha != null ? "MainMechanic?action=view" : cus != null ? "MainCustomer?action=view" : sale != null ? "SaleDashboard.jsp" : "";
-        %>
+        <c:set var="mecha" value="${sessionScope.MECHANIC}" />
+        <c:set var="cus" value="${sessionScope.CUSTOMER}" />
+        <c:set var="sale" value="${sessionScope.SALE}" />
+        <c:set var="homePage" value="" />
+
+        <c:choose>
+            <c:when test="${not empty mecha}">
+                <c:set var="homePage" value="MainMechanic?action=view" />
+            </c:when>
+            <c:when test="${not empty cus}">
+                <c:set var="homePage" value="MainCustomer?action=view" />
+            </c:when>
+            <c:when test="${not empty sale}">
+                <c:set var="homePage" value="SaleDashboard.jsp" />
+            </c:when>
+        </c:choose>
+
 
         <nav class="navbar navbar-dark bg-secondary fixed-top px-3">
             <div class="container-fluid d-flex justify-content-between">
                 <!-- Logo bên trái -->
-                <a class="navbar-brand d-flex align-items-center text-white" href=<%=homePage%>>
+                <a class="navbar-brand d-flex align-items-center text-white" href=${homePage}>
                     <i class="fa-solid fa-house text-white me-2"></i>
                     <span class="fw-bold">Home</span>
                 </a>
-
+                    
                 <!-- Nút Logout bên phải -->
-                <button onclick="confirmLogout()" class="btn btn-danger text-white px-3 btn-logout">
+                <form onclick="confirmLogout()" action="MainController" class="btn btn-danger text-white px-3 btn-logout" method="post">
+                    <i class="fa-solid fa-sign-out-alt me-1"></i>
+                    <input type="submit" name="action" value="logout"/>
+                </form>
+<!--                <button onclick="confirmLogout()" class="btn btn-danger text-white px-3 btn-logout">
                     <i class="fa-solid fa-sign-out-alt me-1"></i> Logout
-                </button>
+                </button>-->
             </div>
         </nav>
         <div id="empty"></div>
@@ -88,7 +103,7 @@
                     confirmButtonText: "Yes, Logout!"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "login.jsp?logout=true"; // Chuyển đúng trang logout
+                        window.location.href = "MainController?action=logout"; // Chuyển đúng trang logout
                     }
                 });
             }

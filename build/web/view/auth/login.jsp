@@ -15,66 +15,67 @@
     </head>
     <body>
 
-        <%
-            if ("true".equals(request.getParameter("logout"))) {
-                session.invalidate(); // Xóa session
-        %>
+    <c:if test="${requestScope.LOGOUT}">
         <div class="alert alert-success">
             You have been logged out successfully.
         </div>
-        <%
-            }
-        %>
+    </c:if>
 
-        <div class="container">
-            <h2>Login</h2>
 
-            <div class="toggle-container">
-                <label class="toggle-label">Customer</label>
-                <label class="toggle-switch">
-                    <input type="checkbox" id="roleSwitch" onchange="updateForm()" />
-                    <span class="slider"></span>
-                </label>
-                <label class="toggle-label">Staff</label>
-            </div>
+    <div class="container">
+        <h2>Login</h2>
 
-            <form id="loginForm" action="MainController" accept-charset="utf-8">
-                <input type="hidden" name="role" value="customer" id="role">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="txtname" required />
-                </div>
-
-                <div class="form-group" id="phoneField">
-                    <label for="phone">Phone:</label>
-                    <input type="text" id="phone" name="txtphone" required />
-                </div>
-
-                <button type="submit" name="action" value="login">Login</button>
-            </form>
-            
-            ${requestScope.ERROR}
+        <div class="toggle-container">
+            <label class="toggle-label">Customer</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="roleSwitch" onchange="updateForm()" />
+                <span class="slider"></span>
+            </label>
+            <label class="toggle-label">Staff</label>
         </div>
 
-        <script>
-            function updateForm() {
-                var roleSwitch = document.getElementById("roleSwitch");
-                var role = document.getElementById("role");
-                var phoneField = document.getElementById("phoneField");
-                var loginForm = document.getElementById("loginForm");
+        <form id="loginForm" action="MainController" accept-charset="utf-8" method="post">
+            <input type="hidden" name="role" value="customer" id="role">
+            
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="txtname" required />
+            </div>
 
-                if (roleSwitch.checked) {
-                    // Nếu chọn Admin, ẩn phone và gửi form đến AdminServlet
-                    phoneField.classList.add("hidden");
-                    document.getElementById("phone").removeAttribute("required");
-                    role.value = "mechanic"
-                } else {
-                    // Nếu chọn Customer, hiển thị phone và gửi form đến CusServlet
-                    phoneField.classList.remove("hidden");
-                    document.getElementById("phone").setAttribute("required", "true");
-                    role.value = "customer";
-                }
+            <div class="form-group" id="phoneField">
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="txtphone" required />
+            </div>
+
+            <input type="submit" name="action" value="login">
+        </form>
+
+        <c:if test="${not empty requestScope.ERROR}">
+            <div class="alert alert-danger">${requestScope.ERROR}</div>
+        </c:if>
+
+    </div>
+
+    <script>
+        function updateForm() {
+            var roleSwitch = document.getElementById("roleSwitch");
+            var role = document.getElementById("role");
+            var phoneField = document.getElementById("phoneField");
+            var loginForm = document.getElementById("loginForm");
+
+            if (roleSwitch.checked) {
+                // Nếu chọn Admin, ẩn phone và gửi form đến AdminServlet
+                phoneField.classList.add("hidden");
+                document.getElementById("phone").removeAttribute("required");
+                document.getElementById("phone").value = "";
+                role.value = "mechanic";
+            } else {
+                // Nếu chọn Customer, hiển thị phone và gửi form đến CusServlet
+                phoneField.classList.remove("hidden");
+                document.getElementById("phone").setAttribute("required", "true");
+                role.value = "customer";
             }
+        }
 
         // Xóa tham số "logout=true" khỏi URL sau khi hiển thị alert
         if (window.history.replaceState) {
@@ -82,7 +83,7 @@
             window.history.replaceState(null, null, newUrl);
         }
 
-        </script>
+    </script>
 
-    </body>
+</body>
 </html>

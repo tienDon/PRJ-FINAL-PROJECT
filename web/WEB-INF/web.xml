@@ -56,6 +56,10 @@
         <servlet-name>updateProfileSerlvet</servlet-name>
         <servlet-class>controller.customer.updateProfileSerlvet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>logoutServlet</servlet-name>
+        <servlet-class>controller.auth.logoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>updateProfileSerlvet</servlet-name>
         <url-pattern>/updateProfileSerlvet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logoutServlet</servlet-name>
+        <url-pattern>/logoutServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

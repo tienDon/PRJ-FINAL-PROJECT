@@ -18,10 +18,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MainController extends HttpServlet {
 
-    private static final String HOME ="login.jsp";
-        private static final String WELCOMECUSTOMER = "loginCusServlet";
+    private static final String HOME = "login.jsp";
+    private static final String WELCOMECUSTOMER = "loginCusServlet";
     private static final String WELCOMESTAFF = "loginMechanicServlet";
-    
+    private static final String LOGOUT = "logoutServlet";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -31,13 +32,13 @@ public class MainController extends HttpServlet {
             String url = HOME;
             try {
                 String action = request.getParameter("action");
-                if(action == null){
+                if (action == null) {
                     url = HOME;
                 }
-                
-                switch(action){
+
+                switch (action) {
                     case "home":
-                        url=HOME;
+                        url = HOME;
                         break;
                     case "login":
                         String role = request.getParameter("role");
@@ -51,13 +52,13 @@ public class MainController extends HttpServlet {
                         }
                         break;
                     case "logout":
-                        
+                        url=LOGOUT;
                         break;
                 }
-                
+
             } catch (Exception e) {
                 log(e + e.getMessage());
-            }finally{
+            } finally {
                 request.getRequestDispatcher(url).forward(request, response);
             }
         }

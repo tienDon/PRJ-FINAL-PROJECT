@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPTU/04/PRJ/FINAL/src/java/model/Customer.java</file>
-            <file>file:/D:/FPTU/04/PRJ/FINAL/web/CusDashboard.jsp</file>
-            <file>file:/D:/FPTU/04/PRJ/FINAL/src/java/controller/customer/updateProfileSerlvet.java</file>
-            <file>file:/D:/FPTU/04/PRJ/FINAL/web/MechanicDashboard.jsp</file>
-            <file>file:/D:/FPTU/04/PRJ/FINAL/src/java/controller/main/MainCustomer.java</file>
+            <file>file:/D:/FPTU/04/PRJ/FINAL/src/java/controller/main/MainController.java</file>
+            <file>file:/D:/FPTU/04/PRJ/FINAL/src/java/controller/customer/loginCusServlet.java</file>
+            <file>file:/D:/FPTU/04/PRJ/FINAL/src/java/controller/mechanic/loginMechanicServlet.java</file>
+            <file>file:/D:/FPTU/04/PRJ/FINAL/web/view/auth/navbar.jsp</file>
+            <file>file:/D:/FPTU/04/PRJ/FINAL/web/view/auth/login.jsp</file>
+            <file>file:/D:/FPTU/04/PRJ/FINAL/src/java/logoutServlet.java</file>
         </group>
     </open-files>
 </project-private>

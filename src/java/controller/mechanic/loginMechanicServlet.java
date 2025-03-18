@@ -44,6 +44,7 @@ public class loginMechanicServlet extends HttpServlet {
                 if (mecha != null) {  // Kiểm tra đăng nhập thành công
                     HttpSession s = request.getSession(true);
                     s.setAttribute("MECHANIC", mecha);
+//                    request.getRequestDispatcher("MainMechanic?action=view").forward(request, response);
                     response.sendRedirect("MainMechanic?action=view");
                 } else {
                     request.getRequestDispatcher("loginSaleServlet").forward(request, response);
